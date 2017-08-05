@@ -16,9 +16,9 @@ object frmValidarXML: TfrmValidarXML
   TextHeight = 13
   object mmoLog: TMemo
     Left = 0
-    Top = 101
+    Top = 139
     Width = 617
-    Height = 186
+    Height = 148
     Align = alClient
     Ctl3D = False
     ParentCtl3D = False
@@ -83,7 +83,7 @@ object frmValidarXML: TfrmValidarXML
     Left = 0
     Top = 0
     Width = 617
-    Height = 101
+    Height = 139
     Align = alTop
     BevelOuter = bvNone
     Ctl3D = False
@@ -91,7 +91,7 @@ object frmValidarXML: TfrmValidarXML
     TabOrder = 4
     DesignSize = (
       617
-      101)
+      139)
     object lblXML: TLabel
       Left = 2
       Top = 7
@@ -141,6 +141,27 @@ object frmValidarXML: TfrmValidarXML
       Caption = '...'
       TabOrder = 3
       OnClick = btnLocalizarXMLClick
+    end
+    object rgTipoXML: TRadioGroup
+      Left = 0
+      Top = 96
+      Width = 185
+      Height = 33
+      Caption = 'Tipo do XML: '
+      Columns = 2
+      Ctl3D = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ItemIndex = 0
+      Items.Strings = (
+        'NF-e'
+        'MDF-e')
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 4
     end
   end
   object dlgOpen: TOpenDialog

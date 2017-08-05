@@ -36,6 +36,7 @@ type
     lblXSD: TLabel;
     dlgOpen: TOpenDialog;
     abcDirectoryDialog: TabcDirectoryDialog;
+    rgTipoXML: TRadioGroup;
     procedure btnValidarClick(Sender: TObject);
     procedure btnLocalizarXMLClick(Sender: TObject);
     procedure btnLocalizarXSDClick(Sender: TObject);
@@ -57,6 +58,7 @@ var
 
 Const
    NAMESPACE_URI = 'http://www.portalfiscal.inf.br/nfe';
+   NAMESPACE_URI_MDFE = 'http://www.portalfiscal.inf.br/mdfe';
 
 implementation
 
@@ -112,7 +114,11 @@ begin
 
   with FValidateXMLXSD do
   begin
-    NamespaceURI := NAMESPACE_URI;
+    if rgTipoXML.ItemIndex = 0 then
+      NamespaceURI := NAMESPACE_URI
+    else
+      NamespaceURI := NAMESPACE_URI_MDFE;
+
     XMLFile := edtXML.Text;
 
     // Preferi passar uma lista Path de XSD para que todos sejam adicionados,
@@ -120,7 +126,7 @@ begin
     // portanto as tags referente ao protocolo de autrização não foram identificadas.
     
     ListarArquivos(edtXSD.Text, PathSchema);
-    IgnoreDuplicates := False; // usar true, gera menos saída, caso haja erros
+    IgnoreDuplicates := false; // usar true, gera menos saída, caso haja erros
     OnMax := DoMax; // evento para configurar a barra de progresso
     OnProgress := DoProgress; // evento para incrementar a barra de progresso
     OnTerminate := DoTerminate; // evento ativado quando a thread termina
@@ -197,7 +203,7 @@ begin
   Lista.Add('retConsSitNFe_v3.10.xsd');
   Lista.Add('tmp0000.xsd');
   Lista.Add('xmldsig-core-schema_v1.01.xsd');
-
+  
   try
     Result := False;
     for i := 0 to Lista.Count -1 do

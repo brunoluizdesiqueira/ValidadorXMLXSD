@@ -126,6 +126,7 @@ var
   SAXXMLReader: IVBSAXXMLReader;
   XMLSchemaCache: Variant;
   i: Integer;
+  nResult : Integer;
 begin
 
   // Criando uma coleção de esquemas (XSD)
@@ -134,9 +135,15 @@ begin
     // Criando um leitor SAX (XML)
     SAXXMLReader := CreateOleObject('MSXML2.SAXXMLReader.6.0') as IVBSAXXMLReader;
 
-    // Bruno: Neste ponto achei melhor receber uma lista de path para adicionar todos os arquivos XSD na coleção
-    for i:= 0 to PathSchema.count -1 do
-      XMLSchemaCache.Add(pNamespaceURI, PathSchema[i]);
+    XMLSchemaCache.validateOnLoad := false;
+
+    try
+      // Bruno: Neste ponto achei melhor receber uma lista de path para adicionar todos os arquivos XSD na coleção
+      for i:= 0 to PathSchema.count -1 do
+       nResult := XMLSchemaCache.Add(pNamespaceURI, PathSchema[i]);
+    except
+       Raise Exception.Create(IntToStr(nResult));
+    end;
 
     // Configurando o leitor SAX para validar o documento XML que nele for carregado
     SAXXMLReader.putFeature('schema-validation', True);
